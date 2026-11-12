@@ -1,0 +1,37 @@
+HOMINHTUAN95 - AUTO 4 CỬA SỔ CÓ KÍCH HOẠT THEO MÁY
+===================================================
+
+YÊU CẦU: Windows 10/11; Python 3.11+ trên máy của chủ phần mềm.
+
+A. CHỦ PHẦN MỀM (LÀM 1 LẦN)
+1. Mở CMD tại thư mục này.
+2. python -m pip install cryptography
+3. python setup_license.py
+   -> Tạo PRIVATE_LICENSE_KEY.pem và chèn khóa công khai vào license_hominhtuan95.py.
+   -> CẤT PRIVATE_LICENSE_KEY.pem CẨN THẬN. KHÔNG TẢI LÊN GITHUB, KHÔNG GỬI KHÁCH.
+4. Upload lên GitHub: Hominhtuan95.py, license_hominhtuan95.py và .github/workflows/build.yml.
+   Không upload PRIVATE_LICENSE_KEY.pem, issue_license.py hay setup_license.py (không cần).
+5. GitHub -> Actions -> Build Hominhtuan95 HWID EXE -> Run workflow.
+6. Tải Artifacts, giải nén, chỉ gửi Hominhtuan95.exe cho khách.
+
+B. KHÁCH HÀNG
+1. Mở EXE -> cửa sổ kích hoạt hiện mã máy.
+2. Nhấn Sao chép mã máy, gửi Zalo TuanHo 0398438721.
+3. Nhập mã kích hoạt do chủ phần mềm gửi -> KÍCH HOẠT.
+4. Lần sau mở EXE sẽ tự kiểm tra giấy phép đã lưu.
+
+C. CHỦ PHẦN MỀM CẤP MÃ CHO KHÁCH
+1. Nhận mã máy ví dụ 12345678-12345678-12345678-12345678.
+2. Trong CMD ở thư mục có PRIVATE_LICENSE_KEY.pem:
+   python issue_license.py --hwid 12345678-12345678-12345678-12345678
+   hoặc cấp mã hết hạn:
+   python issue_license.py --hwid 12345678-12345678-12345678-12345678 --expiry 2027-12-31
+3. Sao chép mã kích hoạt in ra và gửi cho khách.
+
+LƯU Ý
+- Mã được ký số Ed25519, gắn với Windows MachineGuid đã băm SHA-256.
+- Cài lại Windows hoặc thay đổi MachineGuid có thể cần cấp mã mới.
+- Đây là bảo vệ ngoại tuyến, không thể chống sao chép/chỉnh sửa tuyệt đối.
+- Mã có hạn dựa vào đồng hồ máy, không chống được việc chỉnh đồng hồ hệ thống.
+- Giữ nguyên 4 nút BẬT/TẮT riêng, 9 skill 1-9, Tab, Space, đơn vị giây, tối đa 3 giờ.
+- Để chạy thử trên máy chủ: python Hominhtuan95.py (sau khi chạy setup_license.py).

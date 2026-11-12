@@ -1,0 +1,5 @@
+PRIVATE_LICENSE_KEY.pem
+__pycache__/
+build/
+dist/
+*.spec

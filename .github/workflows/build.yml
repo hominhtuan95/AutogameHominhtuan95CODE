@@ -1,0 +1,29 @@
+name: Build Hominhtuan95 HWID EXE
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'Hominhtuan95.py'
+      - 'license_hominhtuan95.py'
+      - '.github/workflows/build.yml'
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: python -m pip install pyinstaller cryptography
+      - name: Check public key and syntax
+        shell: pwsh
+        run: |
+          python -c "import license_hominhtuan95 as l; assert len(l.PUBLIC_KEY_HEX) == 64 and all(c in '0123456789abcdefABCDEF' for c in l.PUBLIC_KEY_HEX), 'Chua chay setup_license.py de cau hinh khoa cong khai'"
+          python -m py_compile Hominhtuan95.py license_hominhtuan95.py
+      - name: Build Windows EXE (no black console)
+        run: python -m PyInstaller --noconfirm --clean --onefile --windowed --name Hominhtuan95 Hominhtuan95.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Hominhtuan95_HWID_EXE
+          path: dist/Hominhtuan95.exe
